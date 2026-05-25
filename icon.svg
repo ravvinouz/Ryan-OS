@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d0d14"/>
+      <stop offset="100%" style="stop-color:#12121e"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff7040"/>
+      <stop offset="50%" style="stop-color:#e8622a"/>
+      <stop offset="100%" style="stop-color:#f0c060"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff7040"/>
+      <stop offset="100%" style="stop-color:#f0c060"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines -->
+  <g opacity="0.04" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+  </g>
+
+  <!-- Outer glow ring -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#ring)" stroke-width="2.5" opacity="0.3" filter="url(#glow)"/>
+
+  <!-- Main ring -->
+  <circle cx="256" cy="256" r="175" fill="none" stroke="url(#ring)" stroke-width="3"/>
+
+  <!-- Inner accent ring -->
+  <circle cx="256" cy="256" r="155" fill="none" stroke="url(#ring)" stroke-width="1" opacity="0.25"/>
+
+  <!-- Corner dots on ring -->
+  <circle cx="256" cy="81" r="5" fill="#ff7040" filter="url(#softglow)"/>
+  <circle cx="431" cy="256" r="5" fill="#f0c060" filter="url(#softglow)"/>
+  <circle cx="256" cy="431" r="5" fill="#ff7040" filter="url(#softglow)"/>
+  <circle cx="81" cy="256" r="5" fill="#f0c060" filter="url(#softglow)"/>
+
+  <!-- R lettermark -->
+  <text x="256" y="310" 
+        font-family="Georgia, serif" 
+        font-size="200" 
+        font-weight="900" 
+        text-anchor="middle" 
+        fill="url(#letter)"
+        filter="url(#softglow)"
+        letter-spacing="-8">R</text>
+
+  <!-- OS tag bottom -->
+  <text x="256" y="370" 
+        font-family="'Courier New', monospace" 
+        font-size="38" 
+        font-weight="700" 
+        text-anchor="middle" 
+        fill="#ffffff" 
+        opacity="0.35"
+        letter-spacing="14">OS</text>
+
+  <!-- Top notch label -->
+  <text x="256" y="68" 
+        font-family="'Courier New', monospace" 
+        font-size="16" 
+        font-weight="700" 
+        text-anchor="middle" 
+        fill="#ff7040" 
+        opacity="0.7"
+        letter-spacing="8">ASCEND</text>
+</svg>
