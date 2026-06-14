@@ -1,25 +1,44 @@
-var CACHE = 'ryanOS-v9';
-var FILES = ['/Ryan-OS/', '/Ryan-OS/index.html'];
+const CACHE_NAME = 'ryanOS-v12';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icon.png'
+];
 
-self.addEventListener('install', function(e) {
-  e.waitUntil(
-    caches.open(CACHE).then(function(c) {
-      return c.addAll(FILES);
-    })
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', function(e) {
-  e.respondWith(
-    caches.match(e.request).then(function(r) {
-      return r || fetch(e.request).then(function(res) {
-        return caches.open(CACHE).then(function(c) {
-          c.put(e.request, res.clone());
-          return res;
-        });
-      });
-    }).catch(function() {
-      return caches.match('/Ryan-OS/index.html');
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      return (
+        cached ||
+        fetch(event.request)
+          .then((response) => {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+            return response;
+          })
+          .catch(() => cached)
+      );
     })
   );
 });
